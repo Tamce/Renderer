@@ -1,0 +1,18 @@
+{
+    "name": "elfstack/renderer",
+    "description": "A basic view renderer",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tamce",
+            "email": "tamce@outlook.com"
+        }
+    ],
+	"autoload": {
+		"psr-4": {
+			"ElfStack\\": "src/"
+		}
+	}
+    "require": {}
+}

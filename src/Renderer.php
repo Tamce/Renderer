@@ -1,5 +1,5 @@
 <?php
-namespace ElfStack;
+namespace Tamce;
 
 use Exception;
 
@@ -26,7 +26,7 @@ class Renderer
 	}
 }
 
-namespace ElfStack\Renderer;
+namespace Renderer\Renderer;
 
 use Exception;
 

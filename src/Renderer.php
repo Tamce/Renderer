@@ -22,11 +22,11 @@ class Renderer
 
 	static public function path($path)
 	{
-		return self::$path = $path;
+		return self::$path = rtrim($path, '\\/').'/';
 	}
 }
 
-namespace Renderer\Renderer;
+namespace Tamce\Renderer;
 
 use Exception;
 
@@ -38,7 +38,7 @@ class Page
 	{
 		$this->file = $viewFile . '.php';
 		if (!file_exists($this->file)) {
-			throw new Exception("Failed to load file: `$viewFile`, file not exist!");
+			throw new Exception("Failed to load file: `$this->file`, file not exist!");
 		}
 		$this->data = $data;
 	}

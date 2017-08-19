@@ -6,18 +6,28 @@ use Exception;
 class Renderer
 {
 	static $path;
-	static public function render($viewFile, $data = [], $statusCode = null, $echo = true)
+	static $defaults = [
+		'data' => [],
+		'statusCode' => null,
+		'echo' => true,
+		'mimeType' => null
+	];
+	static public function render($viewFile, array $data = [])
 	{
+		$data = $data + self::$defaults;
 		try {
-			$page = new Renderer\Page(self::$path.$viewFile, $data);
+			$page = new Renderer\Page(self::$path.$viewFile, $data['data']);
 		} catch (Exception $e) {
 			throw $e;
 		}
 
-		if (!empty($statusCode)) {
-			http_response_code($statusCode);
+		if (!empty($data['statusCode'])) {
+			http_response_code($data['statusCode']);
 		}
-		return $page->show($echo);
+		if (!empty($data['mimeType'])) {
+			header('Content-Type: '.$data['mimeType']);
+		}
+		return $page->show($data['echo']);
 	}
 
 	static public function path($path)
@@ -36,7 +46,7 @@ class Page
 	protected $data;
 	public function __construct($viewFile, array $data)
 	{
-		$this->file = $viewFile . '.php';
+		$this->file = file_exists($viewFile) ? $viewFile : $viewFile . '.php';
 		if (!file_exists($this->file)) {
 			throw new Exception("Failed to load file: `$this->file`, file not exist!");
 		}
